@@ -77,7 +77,7 @@ And sweeter still with arrow-functions:
 ```javascript
 var match = require('pattern-match');
 
-match(ast).cases(function(when) {
+match(ast).cases((when) => {
     when({
         type: 'FunctionCall',
         callee: match.var('callee'),
@@ -120,12 +120,12 @@ provided, returns the sub-match object.
 Match `x` against a sequence of patterns, returning the result of the
 first successful match. The cases are provided by the `body` function:
 
-  ** **body(when)**
+   * **body(when)**
 
 Provides the cases by calling `when` in the order the cases should be
 tried.
 
-  *** **when(pattern[, template[, thisArg]])**
+    * **when(pattern[, template[, thisArg]])**
 
 Provides the next case, consisting of a pattern an optional
 template. If matching the pattern succeeds, the result is passed to
@@ -153,5 +153,5 @@ sub-match object.
 ### Match errors
 
   * **match.MatchError** - an object extending `Error` that represents a failed pattern-match.
-  ** **e.expected** - the expected pattern.
-  ** **e.actual** - the actual value tested.
+   * **e.expected** - the expected pattern.
+   * **e.actual** - the actual value tested.
