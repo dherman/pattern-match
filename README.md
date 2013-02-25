@@ -125,7 +125,7 @@ first successful match. The cases are provided by the `body` function:
 Provides the cases by calling `when` in the order the cases should be
 tried.
 
-    * **when(pattern[, template[, thisArg]])**
+       * **when(pattern[, template[, thisArg]])**
 
 Provides the next case, consisting of a pattern an optional
 template. If matching the pattern succeeds, the result is passed to
@@ -153,5 +153,5 @@ sub-match object.
 ### Match errors
 
   * **match.MatchError** - an object extending `Error` that represents a failed pattern-match.
-   * **e.expected** - the expected pattern.
-   * **e.actual** - the actual value tested.
+      * **e.expected** - the expected pattern.
+      * **e.actual** - the actual value tested.
