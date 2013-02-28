@@ -41,7 +41,7 @@ match(ast, function(when) {
 }, this);
 ```
 
-This will get even sweeter in ES6 with destructuring:
+This will get sweeter in ES6 with destructuring:
 
 ```javascript
 var match = require('pattern-match');
@@ -72,7 +72,7 @@ match(ast, function(when) {
 }, this);
 ```
 
-And sweeter still with arrow-functions:
+And sweeter still with ES6 arrow-functions:
 
 ```javascript
 var match = require('pattern-match');
@@ -150,6 +150,12 @@ provided, returns the sub-match object.
   * **pred(testValue)** - matches any value for which `pred` returns a truthy value.
   * **{ x1: pattern1, ..., xn: patternn }** - matches any object with property names `x1` to `xn` matching patterns `pattern1` to `patternn`, respectively. Only the own properties of the pattern are used.
   * **[ pattern0, ..., patternn ]** - matches any object with property names 0 to n matching patterns `pattern0` to `patternn`, respectively.
+
+### Custom patterns
+
+You can create custom patterns by extending the root pattern prototype.
+
+  * **match.pattern** - the root pattern prototype.
 
 ### Match errors
 
