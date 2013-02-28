@@ -15,30 +15,30 @@ for a hypothetical language:
 ```javascript
 var match = require('pattern-match');
 
-match(ast).cases(function(when) {
+match(ast, function(when) {
     when({
         type: 'FunctionCall',
         callee: match.var('callee'),
         args: match.var('args')
     }, function(vars) {
-        analyzeFunctionCall(vars.callee, vars.args);
-    });
+        this.analyzeFunctionCall(vars.callee, vars.args);
+    }, this);
 
     when({
         type: 'Assignment',
         lhs: match.var('lhs'),
         rhs: match.var('rhs')
     }, function(vars) {
-        analyzeAssignment(vars.lhs, vars.rhs);
-    });
+        this.analyzeAssignment(vars.lhs, vars.rhs);
+    }, this);
 
     when({
         type: 'Return',
         arg: match.var('arg')
     }, function(vars) {
-        analyzeReturn(vars.arg);
-    });
-});
+        this.analyzeReturn(vars.arg);
+    }, this);
+}, this);
 ```
 
 This will get even sweeter in ES6 with destructuring:
@@ -46,30 +46,30 @@ This will get even sweeter in ES6 with destructuring:
 ```javascript
 var match = require('pattern-match');
 
-match(ast).cases(function(when) {
+match(ast, function(when) {
     when({
         type: 'FunctionCall',
         callee: match.var('callee'),
         args: match.var('args')
     }, function({ callee, args }) {
-        analyzeFunctionCall(callee, args);
-    });
+        this.analyzeFunctionCall(callee, args);
+    }, this);
 
     when({
         type: 'Assignment',
         lhs: match.var('lhs'),
         rhs: match.var('rhs')
     }, function({ lhs, rhs }) {
-        analyzeAssignment(lhs, rhs);
-    });
+        this.analyzeAssignment(lhs, rhs);
+    }, this);
 
     when({
         type: 'Return',
         arg: match.var('arg')
     }, function({ arg }) {
-        analyzeReturn(arg);
-    });
-});
+        this.analyzeReturn(arg);
+    }, this);
+}, this);
 ```
 
 And sweeter still with arrow-functions:
@@ -77,13 +77,13 @@ And sweeter still with arrow-functions:
 ```javascript
 var match = require('pattern-match');
 
-match(ast).cases((when) => {
+match(ast, (when) => {
     when({
         type: 'FunctionCall',
         callee: match.var('callee'),
         args: match.var('args')
     }, ({ callee, args }) => {
-        analyzeFunctionCall(callee, args);
+        this.analyzeFunctionCall(callee, args);
     });
 
     when({
@@ -91,14 +91,14 @@ match(ast).cases((when) => {
         lhs: match.var('lhs'),
         rhs: match.var('rhs')
     }, ({ lhs, rhs }) => {
-        analyzeAssignment(lhs, rhs);
+        this.analyzeAssignment(lhs, rhs);
     });
 
     when({
         type: 'Return',
         arg: match.var('arg')
     }, ({ arg }) => {
-        analyzeReturn(arg);
+        this.analyzeReturn(arg);
     });
 });
 ```
