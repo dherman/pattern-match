@@ -108,14 +108,7 @@ match(ast, (when) => {
 
 ### Entry points
 
-  * **match(x).as(pattern[, template[, thisArg]])**
-
-Match `x` against a single pattern. Returns the result of calling
-`template` on the sub-match object with `thisArg` (or the global
-object by default) as the binding of `this`. If `template` is not
-provided, returns the sub-match object.
-
-  * **match(x).cases(body)**
+  * **match(x, body)**
 
 Match `x` against a sequence of patterns, returning the result of the
 first successful match. The cases are provided by the `body` function:
@@ -132,6 +125,14 @@ template. If matching the pattern succeeds, the result is passed to
 `template` with `thisArg` bound to `this` (defaults to the global
 object). If `template` is not provided, this case produces the
 sub-match object.
+
+  * **match(x).when(pattern[, template[, thisArg]])**
+
+Match `x` against a single pattern. Returns the result of calling
+`template` on the sub-match object with `thisArg` (or the global
+object by default) as the binding of `this`. If `template` is not
+provided, returns the sub-match object.
+
 
 ### Patterns
 
