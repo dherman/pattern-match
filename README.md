@@ -145,6 +145,17 @@ provided, returns the sub-match object.
   * **match.undefined** - matches the `undefined` value.
   * **match.boolean** - matches any boolean value.
   * **match.number** - matches any number value.
+  * **match.int32** - matches any integral number value in the range [-2^31, 2^31).
+  * **match.uint32** - matches any integral number value in the range [0, 2^32).
+  * **match.integer** - matches any integral number value, including -Infinity and Infinity.
+  * **match.finite** - matches any number value other than NaN, -Infinity, and Infinity.
+  * **match.infinite** - matches -Infinity and Infinity.
+  * **match.negative** - matches any number less than 0.
+  * **match.positive** - matches any number greater than 0.
+  * **match.nonnegative** - matches any number greater than or equal to 0 (including -0, which most of the time should just be considered 0).
+  * **match.plusZero** - matches only +0 (and not -0). *If you don't know if you need this, don't use it.*
+  * **match.minusZero** - matches only -0 (and not +0). *If you don't know if you need this, don't use it.*
+  * **match.range(low, high)** - matches any number value in the half-open range [`low`, `high`).
   * **match.string** - matches any string value.
   * **match.var(name[, pattern])** - matches the `pattern` (defaults to `any`) and saves the value in the sub-match object with property name `name`.
   * **pred(testValue)** - matches any value for which `pred` returns a truthy value.

@@ -173,3 +173,129 @@ exports.testVar = sync(function(test) {
         match(42).when(match.var("x", match.string)).x;
     });
 });
+
+exports.testRange = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(3).when(match.range(0, 10));
+        match(0).when(match.range(0, 10));
+        match(9).when(match.range(0, 10));
+    });
+    test.throws(function() {
+        match(-1).when(match.range(0, 10));
+        match(10).when(match.range(0, 10));
+        match(99).when(match.range(0, 10));
+    });
+});
+
+exports.testAll = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(100).when(match.all(match.number,
+                                  match.integer,
+                                  match.range(0, 1000),
+                                  100));
+    });
+});
+
+var MAX_INTEGER = 9007199254740991;
+
+exports.testInteger = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(0).when(match.integer);
+        match(-0).when(match.integer);
+        match(1).when(match.integer);
+        match(10).when(match.integer);
+        match(100).when(match.integer);
+        match(1000).when(match.integer);
+        match(1.0).when(match.integer);
+        match(-Infinity).when(match.integer);
+        match(Infinity).when(match.integer);
+        match(MAX_INTEGER).when(match.integer);
+        match(MAX_INTEGER + 1).when(match.integer);
+        match(MAX_INTEGER + 2).when(match.integer);
+        match(-MAX_INTEGER).when(match.integer);
+    });
+    test.throws(function() {
+        match(NaN).when(match.integer);
+        match(1.1).when(match.integer);
+        match(11.11).when(match.integer);
+        match(111.111).when(match.integer);
+    });
+});
+
+exports.testInt32 = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(0).when(match.int32);
+        match(1).when(match.int32);
+        match(10).when(match.int32);
+        match(100).when(match.int32);
+        match(1000).when(match.int32);
+        match(-1).when(match.int32);
+        match(-10).when(match.int32);
+        match(-100).when(match.int32);
+        match(-1000).when(match.int32);
+        match(Math.pow(2, 31) - 1).when(match.int32);
+        match(-Math.pow(2, 31)).when(match.int32);
+    });
+    test.throws(function() {
+        match(Math.pow(2, 31)).when(match.int32);
+        match(-Math.pow(2, 31) - 1).when(match.int32);
+    });
+});
+
+exports.testUint32 = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(0).when(match.uint32);
+        match(1).when(match.uint32);
+        match(10).when(match.uint32);
+        match(100).when(match.uint32);
+        match(1000).when(match.uint32);
+        match(Math.pow(2, 32) - 1).when(match.uint32);
+    });
+    test.throws(function() {
+        match(-1).when(match.uint32);
+        match(-10).when(match.uint32);
+        match(-100).when(match.uint32);
+        match(-1000).when(match.uint32);
+        match(Math.pow(2, 32)).when(match.uint32);
+        match(-Math.pow(2, 31) - 1).when(match.uint32);
+    });
+});
+
+exports.testFinite = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(MAX_INTEGER).when(match.finite);
+        match(Number.MAX_VALUE).when(match.finite);
+        match(Number.MIN_VALUE).when(match.finite);
+        match(0).when(match.finite);
+        match(-0).when(match.finite);
+        match(-Infinity).when(match.infinite);
+        match(Infinity).when(match.infinite);
+    });
+    test.throws(function() {
+        match(-Infinity).when(match.finite);
+        match(Infinity).when(match.finite);
+        match(NaN).when(match.finite);
+        match(NaN).when(match.infinite);
+    });
+});
+
+exports.testSigns = sync(function(test) {
+    test.doesNotThrow(function() {
+        match(-0).when(match.nonnegative);
+        match(0).when(match.nonnegative);
+        match(1).when(match.nonnegative);
+        match(-1).when(match.negative);
+        match(-Infinity).when(match.negative);
+        match(Infinity).when(match.positive);
+        match(-0).when(match.minusZero);
+        match(0).when(match.plusZero);
+    });
+    test.throws(function() {
+        match(0).when(match.positive);
+        match(0).when(match.negative);
+        match(-0).when(match.positive);
+        match(-0).when(match.negative);
+        match(-0).when(match.plusZero);
+        match(0).when(match.minusZero);
+    });
+});
