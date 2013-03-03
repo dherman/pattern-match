@@ -158,6 +158,8 @@ provided, returns the sub-match object.
   * **match.range(low, high)** - matches any number value in the half-open range [`low`, `high`).
   * **match.string** - matches any string value.
   * **match.var(name[, pattern])** - matches the `pattern` (defaults to `any`) and saves the value in the sub-match object with property name `name`.
+  * **match.all(pattern, ...)** - matches if every `pattern` matches.
+  * **match.some(pattern, ...)** - matches if one `pattern` matches.
   * **pred(testValue)** - matches any value for which `pred` returns a truthy value.
   * **{ x1: pattern1, ..., xn: patternn }** - matches any object with property names `x1` to `xn` matching patterns `pattern1` to `patternn`, respectively. Only the own properties of the pattern are used.
   * **[ pattern0, ..., patternn ]** - matches any object with property names 0 to n matching patterns `pattern0` to `patternn`, respectively.

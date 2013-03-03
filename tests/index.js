@@ -193,6 +193,33 @@ exports.testAll = sync(function(test) {
                                   match.integer,
                                   match.range(0, 1000),
                                   100));
+        match().when(match.all());
+    });
+    test.throws(function() {
+        match(100).when(match.all(match.number,
+                                  match.integer,
+                                  match.range(0, 1000),
+                                  match.string));
+    });
+});
+
+exports.testSome = sync(function(test) {
+    test.doesNotThrow(function() {
+        match("hello").when(match.some(match.string,
+                                       match.number,
+                                       match.boolean));
+        match(100).when(match.some(match.string,
+                                   match.number,
+                                   match.boolean));
+        match(true).when(match.some(match.string,
+                                    match.number,
+                                    match.boolean));
+    });
+    test.throws(function() {
+        match({}).when(match.some(match.string,
+                                  match.number,
+                                  match.boolean));
+        match().when(match.some());
     });
 });
 
