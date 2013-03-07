@@ -108,15 +108,16 @@ match(ast, (when) => {
 
 ### Entry points
 
-  * **match(x, body)**
+  * **match(x, body[, thisArg])**
 
 Match `x` against a sequence of patterns, returning the result of the
 first successful match. The cases are provided by the `body` function:
 
-  * **body(when)**
+  * **body.call(thisArg, when)**
 
 Provides the cases by calling `when` in the order the cases should be
-tried.
+tried. The library calls `body` with the `thisArg` provided to `match`
+as the binding of `this`.
 
   * **when(pattern[, template[, thisArg]])**
 

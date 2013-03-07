@@ -326,3 +326,34 @@ exports.testSigns = sync(function(test) {
         match(0).when(match.minusZero);
     });
 });
+
+exports.testBodyThisArg = sync(function(test) {
+    var obj = {
+        xyzzx: "XYZZX"
+    };
+    test.ok(match("XYZZX", function(when) {
+        when(this.xyzzx, function() { return true; });
+    }, obj));
+});
+
+exports.testBodyDefaultThis = sync(function(test) {
+    test.equal(global, match(1, function(when) {
+        var self = this;
+        when(1, function() { return self });
+    }));
+});
+
+exports.testTemplateThisArg = sync(function(test) {
+    var obj = {
+        xyzzx: "XYZZX"
+    };
+    test.equal("XYZZX", match(1, function(when) {
+        when(1, function() { return this.xyzzx; }, obj);
+    }, { amITheGlobalObject: false }));
+});
+
+exports.testTemplateDefaultThis = sync(function(test) {
+    test.equal(global, match(1, function(when) {
+        when(1, function() { return this; });
+    }, { amITheGlobalObject: false }));
+});
